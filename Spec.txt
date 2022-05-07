@@ -1,0 +1,58 @@
+:::::::::::::::: Adventurer Simulator ::::::::::::::::
+Start as a level 1 adventurer (use novel's story as world).
+Gain abilities depending on your background
+Choose your own stats
+Gain specific encounters depending on your belief, etc.
+
+Alternative Gameplay Loops:
+	Diplomacy with people
+	Learning through social interactions with other companies
+	Doing illegal things and getting arrested, put in jail
+	Huge story missions
+	Overarching story
+	Merchant mode
+	
+Gameplay Loop:
+	Visit town, join a company (or with existing company).
+	Take a bounty depending on your company level
+	Setup for the quest, depends on knowledge of company members
+	Travel on worldmap over to the objective, fight random encounters towards there
+	Fight enemy
+	Go back to town to recover + get reward
+
+Fight Mechanics:
+	Top down RTS gameplay, up to 5 groups
+	Everyone has multiple passives + can have multiple abilities (see company level)
+	End goal is to kill enemies in encounter (bandits, monsters, humans)
+	Make this aspect fun and accessible then the game will come together
+		- OR -
+	Connect 3+ combat, candycrush style
+
+//Gameplay Stages
+Character Interactions:
+	Light novel esque, use writing to make it work well
+		Maybe 2 frame animated pictures for each character
+
+World Map:
+	Movement
+	Random encounters
+	
+Area:
+	Choices of what to do
+	
+Combat:
+	Turn based:	- similar to Into the Breach?
+				- or more like Dos2?
+
+
+Characters:
+	Character Abilities
+		Magic
+		Weapon Arts
+		
+	Character Traits
+	
+Artstyle:
+	Pixel filtered real world images
+		Reduce colours of it using Posterize + other functinos(?) - then pixelate
+		maybe colourize to make them all the same shade
