@@ -27,6 +27,32 @@ Fight Mechanics:
 	Make this aspect fun and accessible then the game will come together
 		- OR -
 	Connect 3+ combat, candycrush style
+		Players have skills which impact the board
+		Player weapons allow for people to move gems in other directions.
+		Each weapon has an ability, slower weapons charge them slower
+			Dagger:
+				Short 3x1 lines of gem
+				Ability (Super short cd): Allows for two moves in a turn?
+			Sword:
+				7x1 straight lines
+				Ability: Allows to delete a line of gems
+			Rapier:
+				Destroys individual gem
+				Ability: Destroys a few gems in a line, possibly only from the sides
+			Mace:
+				In a 3x3 square
+				Ability: Allows to delete a large 3x3 square
+			Whip:
+				??
+			Bow:
+				Destroys individual gem
+				Ability: Volley of arrow destroys random gems in an area
+			Wand:
+				Casts an ability
+				
+		Player has to create a "player order" for their party at the start of each turn.
+		Player then gets to use each person's weapons/abilities in turn.
+		Enemy turn goes afterwards?
 
 //Gameplay Stages
 Character Interactions:
@@ -36,7 +62,25 @@ Character Interactions:
 World Map:
 	Movement
 	Random encounters
+
+Event:
+	Something happens, player has light novel choices. These can lead to positive and negative traits.
 	
+	Ambushes:
+		Bandits, Give gold, Threaten, Fight
+		Wolves, Threaten, Flee, Fight
+	Character events:
+		---Based on character traits? Combination of traits?
+	Random:
+		Disentary, character becomes ill
+		Food poisoning
+	Area Specific:
+		Treants in a forest
+		Creatures in a cave
+		Swamp events
+		Trapule by lakes/open fields
+
+
 Area:
 	Choices of what to do
 	
