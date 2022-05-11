@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6713295791263934335}
   m_Layer: 0
   m_Name: slimeGreen
-  m_TagString: Untagged
+  m_TagString: green
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,3 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d01c4d918df9845be9200c03e096cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveAngle: 0
+  col: 0
+  row: 0
+  tarCol: 0
+  tarRow: 0

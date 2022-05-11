@@ -152,6 +152,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb53c9d020ace348ab65cdc79a6491d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  width: 10
+  height: 9
+  tilePrefab: {fileID: 6776182879916498454, guid: c082d11303217cc459d86ef54f5d167a, type: 3}
+  slimes:
+  - {fileID: 1360338448558723827, guid: eaccaa365bab7df49b833c6da4b5dfd4, type: 3}
+  - {fileID: 2159132502255853112, guid: a54f56b7b1c139e45b51b3d7d38d0320, type: 3}
+  - {fileID: 7657427412534819925, guid: c09a718dd6f388e489e3e3f62bdcfcab, type: 3}
+  - {fileID: 4149118536470600551, guid: 034bb8de86151544da0e62cac49a6ecc, type: 3}
+  - {fileID: 7533107233436783890, guid: 8ee1ab1dab9b0b54a8ded92099f335d9, type: 3}
 --- !u!4 &910507152
 Transform:
   m_ObjectHideFlags: 0
@@ -203,7 +212,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -244,7 +253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062476540}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 4.5, y: 4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
