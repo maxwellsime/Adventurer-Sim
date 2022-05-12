@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class board : MonoBehaviour{
-    public int width;
+    /*public int width;
     public int height;
     public GameObject tilePrefab;
     private backgroundTile[,] tileArr;
@@ -32,5 +32,5 @@ public class board : MonoBehaviour{
                 slimesArr[x, y] = slime;
             }   
         }
-    }
+    }*/
 }

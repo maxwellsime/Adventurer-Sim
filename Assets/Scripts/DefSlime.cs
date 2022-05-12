@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class slime : MonoBehaviour{
-    private Vector2 firstTouchPos; // Original mouse position
+    /*private Vector2 firstTouchPos; // Original mouse position
     private Vector2 finalTouchPos; // Mouse position after movement
     private Vector2 tempPos;
     private GameObject otherSlime;
@@ -179,5 +179,5 @@ public class slime : MonoBehaviour{
 
         return r;
     }
-    
+    */
 }
