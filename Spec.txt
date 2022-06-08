@@ -1,102 +1,299 @@
 :::::::::::::::: Adventurer Simulator ::::::::::::::::
-Start as a level 1 adventurer (use novel's story as world).
-Gain abilities depending on your background
-Choose your own stats
-Gain specific encounters depending on your belief, etc.
 
-Alternative Gameplay Loops:
-	Diplomacy with people
-	Learning through social interactions with other companies
-	Doing illegal things and getting arrested, put in jail
-	Huge story missions
-	Overarching story
-	Merchant mode
+//Character
+	Characters start at rank 1, with 5(?) stat points
+	Each rank + x stat points, ?personality points every few ranks
 	
-Gameplay Loop:
-	Visit town, join a company (or with existing company).
-	Take a bounty depending on your company level
-	Setup for the quest, depends on knowledge of company members
-	Travel on worldmap over to the objective, fight random encounters towards there
-	Fight enemy
-	Go back to town to recover + get reward
-
-Fight Mechanics:
-	Top down RTS gameplay, up to 5 groups
-	Everyone has multiple passives + can have multiple abilities (see company level)
-	End goal is to kill enemies in encounter (bandits, monsters, humans)
-	Make this aspect fun and accessible then the game will come together
-		- OR -
-	Connect 3+ combat, candycrush style
-		Players have skills which impact the board
-		Player weapons allow for people to move gems in other directions.
-		Each weapon has an ability, slower weapons charge them slower
-			Dagger:
-				Short 3x1 lines of gem
-				Ability (Super short cd): Allows for two moves in a turn?
-			Sword:
-				7x1 straight lines
-				Ability: Allows to delete a line of gems
-			Rapier:
-				Destroys individual gem
-				Ability: Destroys a few gems in a line, possibly only from the sides
-			Mace:
-				In a 3x3 square
-				Ability: Allows to delete a large 3x3 square
-			Whip:
-				??
-			Bow:
-				Destroys individual gem
-				Ability: Volley of arrow destroys random gems in an area
-			Wand:
-				Casts an ability
-				
-		Player has to create a "player order" for their party at the start of each turn.
-		Player then gets to use each person's weapons/abilities in turn.
-		Enemy turn goes afterwards?
-
-//Gameplay Stages
-Character Interactions:
-	Light novel esque, use writing to make it work well
-		Maybe 2 frame animated pictures for each character
-
-World Map:
-	Movement
-	Random encounters
-
-Event:
-	Something happens, player has light novel choices. These can lead to positive and negative traits.
-	
-	Ambushes:
-		Bandits, Give gold, Threaten, Fight
-		Wolves, Threaten, Flee, Fight
-	Character events:
-		---Based on character traits? Combination of traits?
-	Random:
-		Disentary, character becomes ill
-		Food poisoning
-	Area Specific:
-		Treants in a forest
-		Creatures in a cave
-		Swamp events
-		Trapule by lakes/open fields
-
-
-Area:
-	Choices of what to do
-	
-Combat:
-	Turn based:	- similar to Into the Breach?
-				- or more like Dos2?
-
-
-Characters:
-	Character Abilities
-		Magic
-		Weapon Arts
+	Character Creation:
+		Choose from set background which determines base stats and personality
+		Start at adventurer rank 1, with 5 stat points
+		Each archetype has multiple forced stat points, the rest can be allocated
+		Each history has multiple forced personality traits, a few can be manipulated but none lower than 25 and more than 75
+		Only 2 personality traits can start on a new character
 		
-	Character Traits
+		Backgrounds:
+			Archetype:		(Affects Stats + Weapon)
+				Archon - Form of arcane
+				Paladin - Mace/White/Water
+				Assassin - Daggers/Black
+				Priestess - White/Water
+				Inquisitor - Whip/White/Water
+				Swordsman - Sword
+				Soldier - Spear
+			History:		(Affects Personality + Quirks + Gear)
+				Nobleman
+				Adventurer
+				Hunter
+				Merchant
+			Location:
+				Where to start
+			
 	
-Artstyle:
+	Stats:
+		0-10, Each point allocated to a stat increases the effectiveness + unlocks dialogue options
+		
+		Swords
+		Maces
+		Daggers
+		Whips
+		Bows
+		Water
+		Fire
+		Earth
+		Wind
+		White Arcane
+		Black Arcane
+		
+		Endurance - HP/Amount can travel outside without resting at a city
+		Intelligence - Arcane effectiveness boost
+		Strength - Weapon effectiveness boost
+		Awareness - Improves vision on the worldmap, allows you to see events before they occur, potentially other parties walking about
+		Charisma - Improves social abilities, improves company chemistry
+		Memory - Increases amount of ability slots
+		
+	Personality:
+		Start at rank 50, Effects are unlocked at 75/25 & 100/0
+		Event choices add bonuses to character personality
+		
+		Calmness/Anger
+		Introverted/Extroverted - Effects company ability, leadership quirk is necessary for introverts
+		Anxious/Steadfast - Effects Sanity
+		Mercy/Viciouness
+		Constitution - Dictates chances of negative effects
+	
+	Status:
+		These are status' bars that need to be upkept for each company member
+
+		Health - when reaches 0 = perma death
+		Sanity - when low, company member needs to visit tavern, if religious they church gives them bonus
+		Stamina - when low, company member needs to sleep at a settlment
+		Happiness - when low, company member needs to go to settlement/succeed in a bounty
+			Dependent on character's personality traits, does he want to go fight more, does he want to talk to more people
+		Speed - movement speed (calculated by inventory load), mounts increase speed
+		Load - Inventory load (calculated by number of party members, mounts)
+		
+	Quirks:
+		Aquired from events, backgrounds, personality levels, stat levels, bounties
+		
+		Temporary:
+			Dysentary
+			Stinky
+			Brash
+			Disobediant
+			
+		Permenant/Stat/Personality:
+			Leadership - High charisma, requires set extroversion + awareness
+				+++Company Chemistry, ++Introversion happiness, ---When lone wolf
+			Rugged - High constitution
+			Aware
+			Cuteness - ???, Everyone in the group wants to protect this person and will do anything to do so
+				+++++Company Chemistry
+			Hunter - Killing animals makes him happy, killing humans makes him unhappy
+			Sociopath - Killing innocents does not effect happiness
+			Religious - Requires church for happiness, gives boons when near churches of their faith, bonus for people of the same faith
+			
+	Weapon:
+		Player weapons allow for people to move gems in other directions.
+		Each weapon has an ability, slower weapons charge them slower.
+		
+		Sword:					1-Hand, 2-Hand
+			Straight lines
+			Ability: Allows to delete a line of gems
+		Rapier:					1-Hand
+			Destroys individual gem
+			Ability: Every x turns you destroy an extra gem every turn (Maximum: 5 a turn)	
+		Mace:					1-Hand, 2-Hand
+			3x3 square
+			Ability: Allows to delete a large 3x3 square
+		Dagger:					1-Hand
+			Short 3x1 lines of gem
+			Ability (Super short cd): Allows for two moves in a turn?
+		Whip:					1-Hand, 2-Hand
+			??
+		Flail:
+			??
+		Bow:					Ranged
+			Destroys individual gem
+			Ability: Volley of arrow destroys random gems in an area
+		Wand:
+			Allows for you to have another ability slot
+		Staff:
+			Allows for 2 new ability slots however they have increased cooldown
+		
+	Abilities:
+		Each have "Bolt", destroy a single gem
+		Base ability slots = 1
+		Abilities either: effect combat meter; negate enemy effects/turn; effect gameboard
+		
+		Water:	-Anger
+			Ice
+		Fire: 	+Anger
+		Earth: 	+Composure
+		Wind: 	+Intellect
+			Tornado
+			"One with the Wind"
+		White
+			Sword Arts
+			Mend
+			Illusion
+			
+		Black
+			Shadow
+			Gravity
+			
+		Combination Arcane:
+			Steam - Water, Fire
+			Lightning Cloud - Water, White
+			Blood - Water, Black
+			
+			Lava - Fire, Earth
+			Explosion - Fire, Wind
+			
+			Metal - Earth, Fire
+			
+			Storm - Wind, Water, White
+			Mind Mending - Wind, Black
+
+			
+			Holy - White, Water
+				Holy Heal - White, Water
+			Lightning - White
+			Void Lightning - White, Black
+			Teleportation - White/Black
+			Shapeshifting - Black, Earth
+	Gear:
+		Each gear piece give flat armour and bonuses
+		Outfit/Head/Feet slots are Plate/Mail/Leather/Cloth and give armour + bonuses
+		Neck/Accessory 1/Accessory 2 give flat status bonuses
+		
+		Plate: --Stamina, ++Armour
+		Mail: -Stamina, +Armour
+		Leather:
+		Cloth: +Stamina -Armour
+		
+		Mounts:
+			Stallion +++Speed +Load
+			Pony ++Speed +Load
+			Donkey +Speed +Load
+			Pack Horse +Speed ++Load
+			Carriage ++Speed +++Load
+	
+	Inventory:
+		Goods have specific load costs, cannot hold over your load
+	
+	Company:
+		Group of 4 characters
+		To find them, selection of randomly generated ones when you visit taverns
+			Personality is mainly blank until they're part of your company
+		Removing a member reduces current party member's happiness depending on removed member's happiness
+		Constant low status members will leave the party upon reaching settlements, possibly mid-world map
+		Rewards are split between each member.
+		
+		Chemistry:
+			Personality traits go well with each other, others don't.
+			E.g. A group of all angry members will cause problems however this is counteracted with specific quirks, leadership, cuteness
+
+//Gameplay
+	Gameplay Loop:
+		Overworld:
+			2d map, character clicks to move position (consider Fallout 1 & 2)
+			Day/Night cycle that continues when character moves - set amount of time
+			Random encounters
+			
+			Night:
+				Specific events
+				Dialogue inbetween company members
+				?(Darkest dungeon)
+				
+			Settlements:
+				Save point
+				Resets statuses. Each settlement have different available tasks
+				Receive completed bounty reward (depending on settlement, who runs it, who currently lives there)
+				
+				Tavern: Join a company, manage company, talk to other companies about other companies, talk to tavernkeep about other settlements, talk to waitress/waiter about close events
+				Loremaster: Read up on specific bosses, event types, bounties
+				Bounty Board: Get new bounties depending on current party rank (averaged)
+					Upon inspecting a bounty, company members might have extra information
+				Church: Blessing from whichever god resides here, talk to patrons, talk to priestesses/priests
+				Medic: Heal statuses, get rid of temporary quirks, buy potions/remedies
+				Smith: Get armour/physical weapons
+				Woodworker: Get bows/staves
+				Market: Buy goods, unique items, bounty items
+				Library: Learn and manage abilities
+			
+			Areas:
+				Quick-saves
+				Smaller enclosed maps?
+				Caves/Mountain ranges/Bounty areas/Forests/Ruins
+
+			Events:
+				Choose which character in the company does the dialogue option, some are excluded due to personality
+				Something happens, player has light novel choices. These can lead to positive and negative traits.
+				Use previous party members in events, people who player has interacted with
+	
+				Ambushes:
+					Bandits, Give gold, Threaten, Fight
+					Wolves, Threaten, Flee, Fight
+				Character events:
+					---Based on character traits? Combination of traits?
+				Random:
+					Disentary, character becomes ill
+					Food poisoning
+				Area Specific:
+					Treants in a forest
+					Creatures in a cave
+					Swamp events
+					Trapule by lakes/open fields
+		
+		Bounties:
+			Receive rewards from settlement bounty was taken from or settlements related to the bounty (of the same faith).
+			Rewards are split between members of company.			
+			
+		Combat:
+			Enemies have weaknesses, maybe strengths? Could be too opressive if so
+			?Wind weak to Fire, Fire weak to water, Water weak to Earth, Earth weak to wind
+			End goal is to kill enemies in encounter
+			Connect 3+ combat, candycrush style
+			Each turn every company member gets to effect the gameboard, player chooses the order in which they do
+
+			The Combat Meter:
+				Starts at 0, when it reaches -100 the player loses, 100 the enemy loses
+					Ambushes start with -10/10 combat meter
+				Each turn enemies go up certain rating
+				After a set amount of turns, depending on where the meter ends depends on the outcome
+					25/50/75/100 = win
+						25 = Slight win, less rewards, only managed to kill a few enemies
+						50 = Certain win, default rewards, killed half enemies
+						75 = Decisive win, extra rewards, killed majority of enemies
+						100 = Dominant win, full rewards, killed all of enemies. Bonus rewards?
+					-25/-50/-75/-100 = loss
+						-25 = Slight loss, lower all statuses, lose inventory/gold
+						-50 = Certain loss, drastically lower all statuses, lose inventory/gold
+						-75 = Decisive loss, drastically lower all statuses, lose majority of inventory/gold
+						-100 = Death, forced to start from previous save
+					
+			Slimes:
+				Matching slimes in 3-5 combinations of the same colour cause them to break, each cause damage depending on character rank
+				If matched slime is matched by someone using a weapon or ability, the damage caused is multiplied (?depending on stat)
+				If 4+ slimes are matched together then it turns into a prismatic slime which multiplies any match with it
+
+			Enemy interaction:
+				They do set amount of damage the combat meter each turn
+				Have specific interactions with the board, spells, meter, depending on enemy.
+
+	Alternative Gameplay:
+		Diplomacy with people
+		Learning through social interactions with other companies
+		Doing illegal things and getting arrested, put in jail
+		Huge story missions
+		Overarching story - possibly spawn story events if player hasn't encountered them recently
+		Merchant mode
+	
+//Artstyle
 	Pixel filtered real world images
 		Reduce colours of it using Posterize + other functinos(?) - then pixelate
 		maybe colourize to make them all the same shade
+
+	Dialogue:
+		2 frame animation, one with mouth open
+		"talks" along with dialogue
