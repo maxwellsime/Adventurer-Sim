@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class Combat : MonoBehaviour
 {
-    //[Header]
     public int width = 20;
     public int height = 16;
     public Node[,] board;
-    // List of available pieces.     
-    public Sprite[] pieces;
-    //[Header]
     System.Random random;
+    [Header("UI")]
+    public Sprite[] pieces;
+    public RectTransform gameBoard;
+    [Header("Prefabs")]
+    public GameObject piece;
 
     // Called at first frame of update.
     void Start(){
+        StartGame();
+    }
+
+    void StartGame(){
         string seed = GetRandomSeed();
         random = new System.Random(seed.GetHashCode());
-        InitializeBoard();    
+        
+        InitializeBoard();
+        VerifyBoard();
+        InstantiateBoard();
     }
 
     // Initialize combat board.
@@ -26,27 +34,69 @@ public class Combat : MonoBehaviour
 
         for (int y = 0; y < height; y++){
             for (int x = 0; x < width; x++){
-                board[x, y] = new Node(RandomPiece(), new Point(x, y));
+                board[x, y] = new Node(RandomVal(), new Point(x, y));
             }
         }
-    }
-
-    // Generate random piece 0 -> pieces.Length.
-    private int RandomPiece(){
-        int val = 0;
-        val = (random.Next(0, 100)/ (100/pieces.Length));
-        return val;
     }
 
     // Verify the board does not start with existing matches.
     void VerifyBoard(){
+        List<int> used;
+
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
+                used = new List<int>();
                 Point p = new Point(x,y);
-                int val = getValueFromVector(v);
-                if(val <= 0) continue;
+                int val = GetValueFromPoint(p);
+                
+                for(int i = 0; i < 50; i++){
+                    List<Point> con = IsConnected(p, true);
+                    if(con.Count == 0){continue;}
+                    Debug.Log("IsConnected count = " + con.Count + "   " + x + ", " + y + "      LOOP: " + i);
+                    val = GetValueFromPoint(p);
+
+                    if(!used.Contains(val)){
+                        used.Add(val);
+                    }
+                    
+                    SetValueAtPoint(p, NewVal(ref used));
+                }
+                /*
+                while(IsConnected(p, true).Count > 0){
+                    val = GetValueFromPoint(p);
+
+                    if(!used.Contains(val)){
+                        used.Add(val);
+                    }
+                    
+                    SetValueAtPoint(p, NewVal(ref used));
+                }*/
             }
         }
+    }
+    
+    // Instantiate the board.
+    void InstantiateBoard(){
+        for(int x = 0; x < width; x++){
+            for(int y = 0; y < height; y++){
+                int val = board[x, y].Val;
+
+                GameObject b = Instantiate(piece, gameBoard);
+                Piece p = b.GetComponent<Piece>();
+
+                // Make 0,0 start at the top-left
+                RectTransform rect = p.GetComponent<RectTransform>();
+                rect.anchoredPosition = new Vector2(32 + (64 * x), -32 - (64 * y));
+                p.Init(val, new Point(x,y), pieces[val]);
+            }
+        }
+    }
+
+    // Generate random value 0 -> pieces.Length.
+    private int RandomVal(){
+        int val = 0;
+        val = (random.Next(0, 100)/ (100/pieces.Length));
+        return val;
     }
 
     /* Checks if the board has any connected matches, if so gets rid of them.
@@ -55,7 +105,12 @@ public class Combat : MonoBehaviour
     List<Point> IsConnected(Point p, bool main){
         List<Point> connected = new List<Point>();
         // List of direction functions, ordered to make looping easier.
-        Point[] directions = { Point.Up, Point.Left, Point.Down, Point.Right }; 
+        Point[] directions = { 
+            Point.Up(), 
+            Point.Right(), 
+            Point.Down(), 
+            Point.Left() 
+        }; 
         int val = GetValueFromPoint(p);
 
         // Check for nodes matching val from any direction from p.
@@ -81,8 +136,10 @@ public class Combat : MonoBehaviour
         for(int i = 0; i < 2; i++){
             List<Point> line = new List<Point>();
             // Array of adjacent points, i=0 {up, down}, i=1 {left, right}.
-            Point[] check = {   Point.Add(p, directions[i]), 
-                                Point.Add(p, directions[i + 2]) }; 
+            Point[] check = {   
+                Point.Add(p, directions[i]), 
+                Point.Add(p, directions[i + 2]) 
+            }; 
             int count = 0;
 
             foreach(Point c in check){
@@ -97,17 +154,21 @@ public class Combat : MonoBehaviour
             }
         }
 
-        // Check for nodes matching val in 2x2 ?Maybe dont use, test.
+        // Check for nodes matching val in 2x2
         for(int i = 0; i < 4; i++){
             List<Point> square = new List<Point>();
-            // Array of points that create a square.
-            Point[] check = { Point.Add(p, directions[i]), Point.Add(p, directions[next]), Point.Add(p, Point.Add(direcionts[i], directions[next])) };
-            int count = 0;
             int next = i + 1;
+            int count = 0;
 
-            if(next > 3){
+            if(next >= 4){
                 next -= 4;
             }
+            // Array of points that create a square.
+            Point[] check = { 
+                Point.Add(p, directions[i]), 
+                Point.Add(p, directions[next]), 
+                Point.Add(p, Point.Add(directions[i], directions[next])) 
+            };
 
             foreach(Point c in check){
                 if(GetValueFromPoint(c) == val){
@@ -125,7 +186,7 @@ public class Combat : MonoBehaviour
         // Re-check connected for each member added to connected list.
         if(main){
             for(int i = 0; i < connected.Count; i++){
-                AddPoints(ref connected, isConnected(connected[i], false));
+                AddPoints(ref connected, IsConnected(connected[i], false));
             }
         }
 
@@ -145,7 +206,7 @@ public class Combat : MonoBehaviour
             bool unique = true;
 
             for(int i = 0; i < connected.Count; i++){
-                if(points[i].Equals(p)){
+                if(connected[i].Equals(p)){
                     unique = false;
                     break;
                 }
@@ -160,7 +221,34 @@ public class Combat : MonoBehaviour
 
     // Returns node value at Point p inside board array.
     int GetValueFromPoint(Point p){
+        if(p.x < 0 || p.x >= width || p.y < 0 || p.y >= height){
+            return -1;
+        }
+
         return board[p.x, p.y].Val;
+    }
+
+    // Sets node value at Point p inside board array.
+    void SetValueAtPoint(Point p, int v){
+        board[p.x, p.y].Val = v;
+    }
+
+    // Returns new node value that isn't inside List used.
+    int NewVal(ref List<int> used){
+        List<int> usable = new List<int>();
+
+        if(used.Count == pieces.Length){
+            Debug.Log("usable count <= 0");
+            return RandomVal();
+        }
+        for(int i = 0; i < pieces.Length; i++){
+            usable.Add(i);
+        }
+        foreach(int i in used){
+            usable.Remove(i);
+        }
+
+        return usable[random.Next(0, usable.Count)];
     }
 
     // Generate seed for improved random.

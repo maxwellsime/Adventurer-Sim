@@ -80,6 +80,7 @@
 			Stinky
 			Brash
 			Disobediant
+			PTSD - Company members died infront of them, specifically debuff/buff to enemy type
 			
 		Permenant/Stat/Personality:
 			Leadership - High charisma, requires set extroversion + awareness
