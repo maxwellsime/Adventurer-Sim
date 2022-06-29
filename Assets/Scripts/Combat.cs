@@ -49,19 +49,6 @@ public class Combat : MonoBehaviour
                 Point p = new Point(x,y);
                 int val = GetValueFromPoint(p);
                 
-                for(int i = 0; i < 50; i++){
-                    List<Point> con = IsConnected(p, true);
-                    if(con.Count == 0){continue;}
-                    Debug.Log("IsConnected count = " + con.Count + "   " + x + ", " + y + "      LOOP: " + i);
-                    val = GetValueFromPoint(p);
-
-                    if(!used.Contains(val)){
-                        used.Add(val);
-                    }
-                    
-                    SetValueAtPoint(p, NewVal(ref used));
-                }
-                /*
                 while(IsConnected(p, true).Count > 0){
                     val = GetValueFromPoint(p);
 
@@ -70,7 +57,7 @@ public class Combat : MonoBehaviour
                     }
                     
                     SetValueAtPoint(p, NewVal(ref used));
-                }*/
+                }
             }
         }
     }
@@ -118,7 +105,7 @@ public class Combat : MonoBehaviour
             List<Point> line = new List<Point>();
             int count = 0;
     
-            for(int i = 0; i < 3; i++){
+            for(int i = 1; i < 3; i++){
                 Point check = Point.Add(p, Point.Mult(dir, i));
                 if(GetValueFromPoint(check) == val){
                     line.Add(check);
