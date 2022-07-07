@@ -15,11 +15,11 @@ public class Combat : MonoBehaviour
     public GameObject piece;
 
     // Called at first frame of update.
-    void Start(){
+    private void Start(){
         StartGame();
     }
 
-    void StartGame(){
+    private void StartGame(){
         string seed = GetRandomSeed();
         random = new System.Random(seed.GetHashCode());
         
@@ -29,7 +29,7 @@ public class Combat : MonoBehaviour
     }
 
     // Initialize combat board.
-    void InitializeBoard(){
+    private void InitializeBoard(){
         board = new Node[width, height];
 
         for (int y = 0; y < height; y++){
@@ -40,7 +40,7 @@ public class Combat : MonoBehaviour
     }
 
     // Verify the board does not start with existing matches.
-    void VerifyBoard(){
+    private void VerifyBoard(){
         List<int> used;
 
         for (int x = 0; x < width; x++){
@@ -63,7 +63,7 @@ public class Combat : MonoBehaviour
     }
     
     // Instantiate the board.
-    void InstantiateBoard(){
+    private void InstantiateBoard(){
         for(int x = 0; x < width; x++){
             for(int y = 0; y < height; y++){
                 int val = board[x, y].Val;
@@ -89,7 +89,7 @@ public class Combat : MonoBehaviour
     /* Checks if the board has any connected matches, if so gets rid of them.
         Point p = Node position being checked for matches.
         bool main = Used to run the code twice, guaranteeing a clean board. */
-    List<Point> IsConnected(Point p, bool main){
+    private List<Point> IsConnected(Point p, bool main){
         List<Point> connected = new List<Point>();
         // List of direction functions, ordered to make looping easier.
         Point[] directions = { 
@@ -188,7 +188,7 @@ public class Combat : MonoBehaviour
         ref List<Point> connected = referenced list of currently connected points that need to have their values manipulated.
         List<Point> Add = list of points that need to be appended to connected.
     */
-    void AddPoints(ref List<Point> connected, List<Point> add){
+    private void AddPoints(ref List<Point> connected, List<Point> add){
         foreach(Point p in add){
             bool unique = true;
 
@@ -207,7 +207,7 @@ public class Combat : MonoBehaviour
     }
 
     // Returns node value at Point p inside board array.
-    int GetValueFromPoint(Point p){
+    private int GetValueFromPoint(Point p){
         if(p.x < 0 || p.x >= width || p.y < 0 || p.y >= height){
             return -1;
         }
@@ -216,12 +216,17 @@ public class Combat : MonoBehaviour
     }
 
     // Sets node value at Point p inside board array.
-    void SetValueAtPoint(Point p, int v){
+    private void SetValueAtPoint(Point p, int v){
         board[p.x, p.y].Val = v;
     }
 
+    // Get position of piece on the gameboard from point.
+    public Vector2 getPosFromPoint(Point p){
+        return new Vector2(32 + (64 *p.x), -32 - (64 * p.y));
+    }
+
     // Returns new node value that isn't inside List used.
-    int NewVal(ref List<int> used){
+    private int NewVal(ref List<int> used){
         List<int> usable = new List<int>();
 
         if(used.Count == pieces.Length){

@@ -33,6 +33,17 @@ public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         rect.anchoredPosition = new Vector2(32 + (64 * n.index.x), -32 - (64 * n.index.y));
     }
 
+    // Move anchoredPosition towards pos
+    public void Move(Vector2 pos){
+        rect.anchoredPosition += pos * Time.deltaTime * 16f;
+        //?? Why Time.deltaTime?
+    }
+
+    // Move anchoredPosition to pos
+    public void MoveTo(Vector2 pos){
+        rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, pos, Time.deltaTime * 16f);
+    }
+
     // Changes name of Piece so that it reflects the current index and value
     private void UpdateName(){
         this.name = "Node [" + n.index.x + ", " + n.index.y + "  :  " + n.Val +"]";
