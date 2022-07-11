@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Combat : MonoBehaviour
 {
-    public int width = 20;
-    public int height = 16;
+    public int width = 15;
+    public int height = 12;
     public Node[,] board;
     System.Random random;
     [Header("UI")]
@@ -34,7 +34,7 @@ public class Combat : MonoBehaviour
 
         for (int y = 0; y < height; y++){
             for (int x = 0; x < width; x++){
-                board[x, y] = new Node(RandomVal(), new Point(x, y));
+                board[x, y] = new Node(RandomVal(), new Vector2Int(x, y));
             }
         }
     }
@@ -46,17 +46,17 @@ public class Combat : MonoBehaviour
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
                 used = new List<int>();
-                Point p = new Point(x,y);
-                int val = GetValueFromPoint(p);
+                Vector2Int v = new Vector2Int(x,y);
+                int val = GetValueFromVector(v);
                 
-                while(IsConnected(p, true).Count > 0){
-                    val = GetValueFromPoint(p);
+                while(IsConnected(v, true).Count > 0){
+                    val = GetValueFromVector(v);
 
                     if(!used.Contains(val)){
                         used.Add(val);
                     }
                     
-                    SetValueAtPoint(p, NewVal(ref used));
+                    SetValueAtVector(v, NewVal(ref used));
                 }
             }
         }
@@ -69,12 +69,12 @@ public class Combat : MonoBehaviour
                 int val = board[x, y].Val;
 
                 GameObject b = Instantiate(piece, gameBoard);
-                Piece p = b.GetComponent<Piece>();
+                Piece v = b.GetComponent<Piece>();
 
                 // Make 0,0 start at the top-left
-                RectTransform rect = p.GetComponent<RectTransform>();
-                rect.anchoredPosition = new Vector2(32 + (64 * x), -32 - (64 * y));
-                p.Init(val, new Point(x,y), pieces[val]);
+                RectTransform rect = v.GetComponent<RectTransform>();
+                rect.anchoredPosition = new Vector2(40 + (80 * x), -40 - (80 * y));
+                v.Init(val, new Vector2Int(x,y), pieces[val]);
             }
         }
     }
@@ -87,27 +87,27 @@ public class Combat : MonoBehaviour
     }
 
     /* Checks if the board has any connected matches, if so gets rid of them.
-        Point p = Node position being checked for matches.
+        Vector2Int v = Node position being checked for matches.
         bool main = Used to run the code twice, guaranteeing a clean board. */
-    private List<Point> IsConnected(Point p, bool main){
-        List<Point> connected = new List<Point>();
+    private List<Vector2Int> IsConnected(Vector2Int v, bool main){
+        List<Vector2Int> connected = new List<Vector2Int>();
         // List of direction functions, ordered to make looping easier.
-        Point[] directions = { 
-            Point.Up(), 
-            Point.Right(), 
-            Point.Down(), 
-            Point.Left() 
+        Vector2Int[] directions = { 
+            Vector2Int.up, 
+            Vector2Int.right, 
+            Vector2Int.down, 
+            Vector2Int.left 
         }; 
-        int val = GetValueFromPoint(p);
+        int val = GetValueFromVector(v);
 
-        // Check for nodes matching val from any direction from p.
-        foreach(Point dir in directions){
-            List<Point> line = new List<Point>();
+        // Check for nodes matching val from any direction from v.
+        foreach(Vector2Int dir in directions){
+            List<Vector2Int> line = new List<Vector2Int>();
             int count = 0;
     
             for(int i = 1; i < 3; i++){
-                Point check = Point.Add(p, Point.Mult(dir, i));
-                if(GetValueFromPoint(check) == val){
+                Vector2Int check = v + (dir * i);
+                if(GetValueFromVector(check) == val){
                     line.Add(check);
                     count++;
                 }
@@ -115,50 +115,50 @@ public class Combat : MonoBehaviour
 
             // Count = 2 or more, there exists a current match.
             if(count > 1){
-                AddPoints(ref connected, line);
+                AddVectors(ref connected, line);
             }
         }
 
-        // Check for nodes matching val in adjacent points.
+        // Check for nodes matching val in adjacent vectors.
         for(int i = 0; i < 2; i++){
-            List<Point> line = new List<Point>();
-            // Array of adjacent points, i=0 {up, down}, i=1 {left, right}.
-            Point[] check = {   
-                Point.Add(p, directions[i]), 
-                Point.Add(p, directions[i + 2]) 
+            List<Vector2Int> line = new List<Vector2Int>();
+            // Array of adjacent vectors, i=0 {up, down}, i=1 {left, right}.
+            Vector2Int[] check = {   
+                v + directions[i], 
+                v + directions[i + 2] 
             }; 
             int count = 0;
 
-            foreach(Point c in check){
-                if(GetValueFromPoint(c) == val){
+            foreach(Vector2Int c in check){
+                if(GetValueFromVector(c) == val){
                     line.Add(c);
                     count++;
                 }
             }
 
             if(count > 1){
-                AddPoints(ref connected, line);
+                AddVectors(ref connected, line);
             }
         }
 
         // Check for nodes matching val in 2x2
-        for(int i = 0; i < 4; i++){
-            List<Point> square = new List<Point>();
+        /*for(int i = 0; i < 4; i++){
+            List<Vector2Int> square = new List<Vector2Int>();
             int next = i + 1;
             int count = 0;
 
             if(next >= 4){
                 next -= 4;
             }
-            // Array of points that create a square.
-            Point[] check = { 
-                Point.Add(p, directions[i]), 
-                Point.Add(p, directions[next]), 
-                Point.Add(p, Point.Add(directions[i], directions[next])) 
+            // Array of vectors that create a square.
+            Vector2Int[] check = { 
+                v + directions[i], 
+                v + directions[next], 
+                v + (directions[i] + directions[next]) 
             };
 
-            foreach(Point c in check){
-                if(GetValueFromPoint(c) == val){
+            foreach(Vector2Int c in check){
+                if(GetValueFromVector(c) == val){
                     square.Add(c);
                     count++;
                 }
@@ -166,63 +166,63 @@ public class Combat : MonoBehaviour
             
             // Count = 3 or more, a 2x2 of matching values exist.
             if(count > 2){
-                AddPoints(ref connected, square);
+                AddVectors(ref connected, square);
             }
-        }
+        }*/
 
         // Re-check connected for each member added to connected list.
         if(main){
             for(int i = 0; i < connected.Count; i++){
-                AddPoints(ref connected, IsConnected(connected[i], false));
+                AddVectors(ref connected, IsConnected(connected[i], false));
             }
         }
 
         if(connected.Count > 0){
-            connected.Add(p);
+            connected.Add(v);
         }
 
         return connected;
     }
 
-    /* Add points from a given list to the referred connected.
-        ref List<Point> connected = referenced list of currently connected points that need to have their values manipulated.
-        List<Point> Add = list of points that need to be appended to connected.
+    /* Add vectors from a given list to the referred connected.
+        ref List<Vector2Int> connected = referenced list of currently connected vectors that need to have their values manipulated.
+        List<Vector2Int> Add = list of vectors that need to be appended to connected.
     */
-    private void AddPoints(ref List<Point> connected, List<Point> add){
-        foreach(Point p in add){
+    private void AddVectors(ref List<Vector2Int> connected, List<Vector2Int> add){
+        foreach(Vector2Int v in add){
             bool unique = true;
 
             for(int i = 0; i < connected.Count; i++){
-                if(connected[i].Equals(p)){
+                if(connected[i].Equals(v)){
                     unique = false;
                     break;
                 }
             }
 
-            // If Point p is not already inside connected then add it.
+            // If Vector2Int v is not already inside connected then add it.
             if(unique){
-                connected.Add(p);
+                connected.Add(v);
             }
         }
     }
 
-    // Returns node value at Point p inside board array.
-    private int GetValueFromPoint(Point p){
-        if(p.x < 0 || p.x >= width || p.y < 0 || p.y >= height){
+    // Returns node value at Vector2Int v inside board array.
+    private int GetValueFromVector(Vector2Int v){
+        if(v.x < 0 || v.x >= width || v.y < 0 || v.y >= height){
             return -1;
         }
 
-        return board[p.x, p.y].Val;
+        return board[v.x, v.y].Val;
     }
 
-    // Sets node value at Point p inside board array.
-    private void SetValueAtPoint(Point p, int v){
-        board[p.x, p.y].Val = v;
+    // Sets node value at Vector2Int v inside board array.
+    private void SetValueAtVector(Vector2Int v, int val){
+        board[v.x, v.y].Val = val;
     }
 
-    // Get position of piece on the gameboard from point.
-    public Vector2 getPosFromPoint(Point p){
-        return new Vector2(32 + (64 *p.x), -32 - (64 * p.y));
+    // Get position of piece on the gameboard from vector.
+    public Vector2 getPosFromVector(Vector2Int v){
+        return new Vector2(40 + (80 *v.x), -40 - (80 * v.y));
     }
 
     // Returns new node value that isn't inside List used.

@@ -1,9 +1,12 @@
-public class Quirk{
-    string name;
-    // List of effects that Hunter class uses when calculating gameplay outcomes.
-    Dictionary<string, int> effects = new Dictionary<string, int>();
+using System.Collections;
+using System.Collections.Generic;
 
-    public void Quirk(string name, Dictionary<string, int> effects){
+public class Quirk{
+    public string name;
+    // List of effects that Hunter class uses when calculating gameplay outcomes.
+    public Dictionary<string, int> effects = new Dictionary<string, int>();
+
+    public Quirk(string name, Dictionary<string, int> effects){
         this.name = name;
         this.effects = effects;
     }

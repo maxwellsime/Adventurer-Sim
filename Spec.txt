@@ -57,7 +57,7 @@
 		
 		Calmness/Anger
 		Introverted/Extroverted - Effects company ability, leadership quirk is necessary for introverts
-		Anxious/Steadfast - Effects Sanity
+		Anxious/Bravery - Effects Sanity
 		Mercy/Viciouness
 		Constitution - Dictates chances of negative effects
 	

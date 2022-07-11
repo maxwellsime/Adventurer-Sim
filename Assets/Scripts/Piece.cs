@@ -12,31 +12,31 @@ public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     bool updating;
     Image img;
 
-    public void Init(int v, Point p, Sprite piece){
+    public void Init(int val, Vector2Int v, Sprite piece){
         img = GetComponent<Image>();
         rect = GetComponent<RectTransform>();
-        n = new Node(v, p);
+        n = new Node(val, v);
         img.sprite = piece;
 
-        SetIndex(p);
+        SetIndex(v);
     }
 
-    // Set node index values to point p
-    public void SetIndex(Point p){
-        n.index = p;
+    // Set node index values to point v
+    public void SetIndex(Vector2Int v){
+        n.index = v;
         Reset();
         UpdateName();
     }
 
     // Reset graphical position of the piece to be correct to the current index
     public void Reset(){
-        rect.anchoredPosition = new Vector2(32 + (64 * n.index.x), -32 - (64 * n.index.y));
+        rect.anchoredPosition = new Vector2(40 + (80 * n.index.x), -40 - (80 * n.index.y));
     }
 
     // Move anchoredPosition towards pos
     public void Move(Vector2 pos){
         rect.anchoredPosition += pos * Time.deltaTime * 16f;
-        //?? Why Time.deltaTime?
+        //?? redundant ??
     }
 
     // Move anchoredPosition to pos
@@ -57,11 +57,13 @@ public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // Called when user inputs pointer (mouse click) on this object
     public void OnPointerDown(PointerEventData eventData){
         if (updating) return;
-        Debug.Log("Grab" + transform.name);
+        MovePiece.instance.Move(this);
+        Debug.Log("-----------Grab" + transform.name);
     }
 
     // Called when user cancels pointer (mouse click) input on this object
     public void OnPointerUp(PointerEventData eventData){
-        Debug.Log("Let go of " + transform.name);
+        MovePiece.instance.DropPiece();
+        Debug.Log("-----------Let go of " + transform.name);
     }
 }
